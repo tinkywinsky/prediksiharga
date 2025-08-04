@@ -2,7 +2,7 @@ import mysql.connector
 from mysql.connector import Error
 from sqlalchemy import create_engine
 import pandas as pd
-
+import streamlit as st
 
 def get_connection():
     """Membuat koneksi ke database MySQL."""
@@ -72,6 +72,7 @@ def delete_data(id):
     cursor.execute(query, (id,))
     conn.commit()
     conn.close()
+
 
 
 
