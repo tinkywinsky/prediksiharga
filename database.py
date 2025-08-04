@@ -8,7 +8,7 @@ def get_connection():
     """Membuat koneksi ke database MySQL menggunakan Streamlit Secrets."""
     try:
         conn = mysql.connector.connect(
-            host="103.164.173.66",  # IP Server MariaDB
+            host="jade2.hidden-server.net",  # IP Server MariaDB
             user="tugasakh_winan",
             password="@123OliH321@",
             database="tugasakh_login_app" # Password dari Streamlit Secrets
@@ -81,4 +81,5 @@ def delete_data(id):
         cursor.execute(query, (id,))
         conn.commit()
         conn.close()
+
 
