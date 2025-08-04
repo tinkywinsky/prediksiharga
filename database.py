@@ -9,9 +9,9 @@ def get_connection():
     try:
         conn = mysql.connector.connect(
             host='localhost',        # Ganti dengan host MySQL Anda
-            database='login_app',  # Ganti dengan nama database Anda
-            user='root',             # Ganti dengan username MySQL Anda
-            password=''   # Ganti dengan password MySQL Anda
+            database='tugasakh_login_app',  # Ganti dengan nama database Anda
+            user='tugasakh_winan',             # Ganti dengan username MySQL Anda
+            password='@123OliH321@'   # Ganti dengan password MySQL Anda
         )
         return conn
     except Error as e:
@@ -71,6 +71,7 @@ def delete_data(id):
     cursor.execute(query, (id,))
     conn.commit()
     conn.close()
+
 
 
 
