@@ -33,4 +33,3 @@ def authenticate(username, password):
     else:
         st.error("Gagal menyambungkan ke database.")
         return False
-
