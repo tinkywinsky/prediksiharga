@@ -19,10 +19,12 @@ def get_connection():
         return None
 
 def get_sqlalchemy_engine():
-    DB_HOST = 'jade2.hidden-server.net'        
-DB_DATABASE = 'tugasakh_login_app'
-DB_USER = 'tugasakh_winan'                      
-DB_PASSWORD = 'winandamendes'
+    user = 'tugasakh_winan'
+    password = 'windandamendes'
+    host = 'jade2.hidden-server.net'
+    port = 3306
+    database = 'tugasakh_login_app'
+
 
     engine = create_engine(f"mysql+pymysql://{user}:{password}@{host}:{port}/{database}")
     return engine
