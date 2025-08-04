@@ -2,83 +2,96 @@ import mysql.connector
 from mysql.connector import Error
 from sqlalchemy import create_engine
 import pandas as pd
-import streamlit as st
+
 
 def get_connection():
-    """Membuat koneksi ke database MySQL menggunakan Streamlit Secrets."""
+    """Membuat koneksi ke database MySQL."""
     try:
-        # Menambahkan koma yang hilang antara parameter
         conn = mysql.connector.connect(
-            host=st.secrets["DB_HOST"],        # Host dari Streamlit Secrets
-            database=st.secrets["DB_DATABASE"],  # Nama database dari Streamlit Secrets
-            user=st.secrets["DB_USER"],             # Username dari Streamlit Secrets
-            password=st.secrets["DB_PASSWORD"]   # Password dari Streamlit Secrets
+            host='localhost',        # Ganti dengan host MySQL Anda
+            database='login_app',  # Ganti dengan nama database Anda
+            user='root',             # Ganti dengan username MySQL Anda
+            password=''   # Ganti dengan password MySQL Anda
         )
-        if conn.is_connected():
-            print("Koneksi berhasil ke database.")
         return conn
     except Error as e:
         print(f"Error saat menyambungkan ke database: {e}")
         return None
 
 def get_sqlalchemy_engine():
-    """Membuat engine SQLAlchemy untuk koneksi ke database."""
-    user = st.secrets["DB_USER"]
-    password = st.secrets["DB_PASSWORD"]
-    host = st.secrets["DB_HOST"]
-    port = 3306  # Port default untuk MySQL
-    database = st.secrets["DB_DATABASE"]
+    user = 'root'
+    password = ''
+    host = 'localhost'
+    port = 3306
+    database = 'login_app'
 
     engine = create_engine(f"mysql+pymysql://{user}:{password}@{host}:{port}/{database}")
     return engine
 
 def fetch_data():
-    """Mengambil data dari tabel parfum_table."""
     conn = get_connection()
-    if conn is not None:
-        cursor = conn.cursor(dictionary=True)
-        cursor.execute("SELECT * FROM parfum_table")
-        data = cursor.fetchall()
-        conn.close()
-        return pd.DataFrame(data)
-    else:
-        return pd.DataFrame()
+    cursor = conn.cursor(dictionary=True)
+    cursor.execute("SELECT * FROM parfum_table")
+    data = cursor.fetchall()
+    conn.close()
+    return pd.DataFrame(data)
+# ============================
+# Komponen Parfum: INSERT dan FETCH
+# ============================
+
+def insert_komponen(formula, alkohol, aquadest, ukuran, harga):
+    conn = get_connection()
+    cursor = conn.cursor()
+    query = """
+        INSERT INTO parfum_komponen (formula, alkohol, aquadest, ukuran, harga)
+        VALUES (%s, %s, %s, %s, %s)
+    """
+    values = (formula, alkohol, aquadest, ukuran, harga)
+    cursor.execute(query, values)
+    conn.commit()
+    conn.close()
+
+def fetch_komponen_data():
+    conn = get_connection()
+    cursor = conn.cursor(dictionary=True)
+    cursor.execute("SELECT * FROM parfum_komponen")
+    data = cursor.fetchall()
+    conn.close()
+    return pd.DataFrame(data)
+
 
 # Fungsi menambahkan data ke database
 def insert_data(varian_name, fragrant, formula, aquadest, alkohol, gender, jenis, ukuran, harga):
     conn = get_connection()
-    if conn is not None:
-        cursor = conn.cursor()
-        query = """
-            INSERT INTO parfum_table (VARIAN_NAME, FRAGRANT, FORMULA, AQUADEST, ALKOHOL, GENDER, JENIS, UKURAN, HARGA)
-            VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s)
-        """
-        values = (varian_name, fragrant, formula, aquadest, alkohol, gender, jenis, ukuran, harga)
-        cursor.execute(query, values)
-        conn.commit()
-        conn.close()
+    cursor = conn.cursor()
+    query = """
+        INSERT INTO parfum_table (VARIAN_NAME, FRAGRANT, FORMULA, AQUADEST, ALKOHOL, GENDER, JENIS, UKURAN, HARGA)
+        VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s)
+    """
+    values = (varian_name, fragrant, formula, aquadest, alkohol, gender, jenis, ukuran, harga)
+    cursor.execute(query, values)
+    conn.commit()
+    conn.close()
 
 # Fungsi memperbarui data di database
 def update_data(id, varian_name, fragrant, formula, aquadest, alkohol, gender, jenis, ukuran, harga):
     conn = get_connection()
-    if conn is not None:
-        cursor = conn.cursor()
-        query = """
-            UPDATE parfum_table
-            SET VARIAN_NAME = %s, FRAGRANT = %s, FORMULA = %s, AQUADEST = %s, ALKOHOL = %s, GENDER = %s, JENIS = %s, UKURAN = %s, HARGA = %s
-            WHERE id = %s
-        """
-        values = (varian_name, fragrant, formula, aquadest, alkohol, gender, jenis, ukuran, harga, id)
-        cursor.execute(query, values)
-        conn.commit()
-        conn.close()
+    cursor = conn.cursor()
+    query = """
+        UPDATE parfum_table
+        SET VARIAN_NAME = %s, FRAGRANT = %s, FORMULA = %s, AQUADEST = %s, ALKOHOL = %s, GENDER = %s, JENIS = %s, UKURAN = %s, HARGA = %s
+        WHERE id = %s
+    """
+    values = (varian_name, fragrant, formula, aquadest, alkohol, gender, jenis, ukuran, harga, id)
+    cursor.execute(query, values)
+    conn.commit()
+    conn.close()
 
 # Fungsi menghapus data dari database
 def delete_data(id):
     conn = get_connection()
-    if conn is not None:
-        cursor = conn.cursor()
-        query = "DELETE FROM parfum_table WHERE id = %s"
-        cursor.execute(query, (id,))
-        conn.commit()
-        conn.close()
+    cursor = conn.cursor()
+    query = "DELETE FROM parfum_table WHERE id = %s"
+    cursor.execute(query, (id,))
+    conn.commit()
+    conn.close()
