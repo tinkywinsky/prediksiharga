@@ -9,9 +9,9 @@ def get_connection():
     try:
         conn = mysql.connector.connect(
             host='localhost',        # Ganti dengan host MySQL Anda
-            database='login_app',  # Ganti dengan nama database Anda
-            user='root',             # Ganti dengan username MySQL Anda
-            password=''   # Ganti dengan password MySQL Anda
+            database='tugasakh_login_app',  # Ganti dengan nama database Anda
+            user='winan',             # Ganti dengan username MySQL Anda
+            password='winandamendes'   # Ganti dengan password MySQL Anda
         )
         return conn
     except Error as e:
@@ -19,11 +19,11 @@ def get_connection():
         return None
 
 def get_sqlalchemy_engine():
-    user = 'root'
-    password = ''
+    user = 'winan'
+    password = 'winandamendes'
     host = 'localhost'
     port = 3306
-    database = 'login_app'
+    database = 'tugasakh_login_app'
 
     engine = create_engine(f"mysql+pymysql://{user}:{password}@{host}:{port}/{database}")
     return engine
@@ -71,3 +71,4 @@ def delete_data(id):
     cursor.execute(query, (id,))
     conn.commit()
     conn.close()
+
