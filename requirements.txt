@@ -1,7 +1,8 @@
 streamlit
 pandas
 mysql-connector-python
-sqlalchemy
+sqlalchemy==2.0.0
+
 
 
 
