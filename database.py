@@ -7,12 +7,12 @@ import streamlit as st
 def get_connection():
     """Membuat koneksi ke database MySQL menggunakan Streamlit Secrets."""
     try:
+        # Menambahkan koma yang hilang antara parameter
         conn = mysql.connector.connect(
-            user = st.secrets["DB_USER"]
-            password = st.secrets["DB_PASSWORD"]
-        host = st.secrets["DB_HOST"]
-        port = 3306  # Port default untuk MySQL
-        database = st.secrets["DB_DATABASE"] # Password dari Streamlit Secrets
+            host=st.secrets["DB_HOST"],        # Host dari Streamlit Secrets
+            database=st.secrets["DB_DATABASE"],  # Nama database dari Streamlit Secrets
+            user=st.secrets["DB_USER"],             # Username dari Streamlit Secrets
+            password=st.secrets["DB_PASSWORD"]   # Password dari Streamlit Secrets
         )
         if conn.is_connected():
             print("Koneksi berhasil ke database.")
@@ -82,7 +82,3 @@ def delete_data(id):
         cursor.execute(query, (id,))
         conn.commit()
         conn.close()
-
-
-
-
