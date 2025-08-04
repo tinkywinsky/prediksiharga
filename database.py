@@ -4,6 +4,15 @@ from sqlalchemy import create_engine
 import pandas as pd
 import streamlit as st
 
+def create_connection():
+    """Fungsi untuk membuat koneksi ke database MySQL."""
+        return mysql.connector.connect(
+            host=st.secrets["DB_HOST"],
+            database=st.secrets["DB_DATABASE"],
+            user=st.secrets["DB_USER"],
+            password=st.secrets["DB_PASSWORD"]    # Ganti dengan nama database Anda
+        )
+
 def fetch_data():
     conn = get_connection()
     cursor = conn.cursor(dictionary=True)
@@ -47,6 +56,7 @@ def delete_data(id):
     cursor.execute(query, (id,))
     conn.commit()
     conn.close()
+
 
 
 
