@@ -21,7 +21,7 @@ def get_connection():
 def get_sqlalchemy_engine():
     user = 'tugasakh_winan'
     password = 'windandamendes'
-    host = '103.164.173.66'
+    host = 'localhost'
     port = 3306
     database = 'tugasakh_login_app'
 
@@ -72,6 +72,7 @@ def delete_data(id):
     cursor.execute(query, (id,))
     conn.commit()
     conn.close()
+
 
 
 
