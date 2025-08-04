@@ -22,7 +22,7 @@ def get_sqlalchemy_engine():
     user = 'tugasakh_winan'
     password = 'windandamendes'
     host = 'jade2.hidden-server.net'
-    port = 3306
+    port = 2082
     database = 'tugasakh_login_app'
 
 
@@ -72,6 +72,7 @@ def delete_data(id):
     cursor.execute(query, (id,))
     conn.commit()
     conn.close()
+
 
 
 
