@@ -11,7 +11,7 @@ def get_connection():
             host='localhost',        # Ganti dengan host MySQL Anda
             database='tugasakh_login_app',  # Ganti dengan nama database Anda
             user='tugasakh_winan',             # Ganti dengan username MySQL Anda
-            password=''   # Ganti dengan password MySQL Anda
+            password='@123OliH321@'   # Ganti dengan password MySQL Anda
         )
         return conn
     except Error as e:
@@ -20,7 +20,7 @@ def get_connection():
 
 def get_sqlalchemy_engine():
     user = 'tugasakh_winan'
-    password = ''
+    password = '@123OliH321@'
     host = 'localhost'
     port = 3306
     database = 'tugasakh_login_app'
@@ -71,6 +71,7 @@ def delete_data(id):
     cursor.execute(query, (id,))
     conn.commit()
     conn.close()
+
 
 
 
