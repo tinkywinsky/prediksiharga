@@ -4,14 +4,29 @@ from sqlalchemy import create_engine
 import pandas as pd
 import streamlit as st
 
-def create_connection():
-    """Fungsi untuk membuat koneksi ke database MySQL."""
-        return mysql.connector.connect(
-            host=st.secrets["DB_HOST"],
-            database=st.secrets["DB_DATABASE"],
-            user=st.secrets["DB_USER"],
-            password=st.secrets["DB_PASSWORD"]    # Ganti dengan nama database Anda
+def get_connection():
+    """Membuat koneksi ke database MySQL."""
+    try:
+        conn = mysql.connector.connect(
+            host='localhost',        # Ganti dengan host MySQL Anda
+            database='login_app',  # Ganti dengan nama database Anda
+            user='root',             # Ganti dengan username MySQL Anda
+            password=''   # Ganti dengan password MySQL Anda
         )
+        return conn
+    except Error as e:
+        print(f"Error saat menyambungkan ke database: {e}")
+        return None
+
+def get_sqlalchemy_engine():
+    user = 'root'
+    password = ''
+    host = 'localhost'
+    port = 3306
+    database = 'login_app'
+
+    engine = create_engine(f"mysql+pymysql://{user}:{password}@{host}:{port}/{database}")
+    return engine
 
 def fetch_data():
     conn = get_connection()
