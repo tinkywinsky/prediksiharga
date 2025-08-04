@@ -4,31 +4,6 @@ from sqlalchemy import create_engine
 import pandas as pd
 import streamlit as st
 
-def get_connection():
-    """Membuat koneksi ke database MySQL."""
-    try:
-        conn = mysql.connector.connect(
-            host='jade2.hidden-server.net',        # Ganti dengan host MySQL Anda
-            database='tugasakh_login_app',  # Ganti dengan nama database Anda
-            user='tugasakh_winan',             # Ganti dengan username MySQL Anda
-            password='@123OliH321@'   # Ganti dengan password MySQL Anda
-        )
-        return conn
-    except Error as e:
-        print(f"Error saat menyambungkan ke database: {e}")
-        return None
-
-def get_sqlalchemy_engine():
-    user = 'tugasakh_winan'
-    password = '@123OliH321@'
-    host = 'jade2.hidden-server.net'
-    port = 3306
-    database = 'tugasakh_login_app'
-
-
-    engine = create_engine(f"mysql+pymysql://{user}:{password}@{host}:{port}/{database}")
-    return engine
-
 def fetch_data():
     conn = get_connection()
     cursor = conn.cursor(dictionary=True)
@@ -72,6 +47,7 @@ def delete_data(id):
     cursor.execute(query, (id,))
     conn.commit()
     conn.close()
+
 
 
 
