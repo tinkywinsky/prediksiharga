@@ -8,7 +8,7 @@ def get_connection():
     """Membuat koneksi ke database MySQL."""
     try:
         conn = mysql.connector.connect(
-            host='103.164.173.66',        # Ganti dengan host MySQL Anda
+            host='localhost',        # Ganti dengan host MySQL Anda
             database='tugasakh_login_app',  # Ganti dengan nama database Anda
             user='tugasakh_winan',             # Ganti dengan username MySQL Anda
             password='winandamendes'   # Ganti dengan password MySQL Anda
@@ -72,6 +72,7 @@ def delete_data(id):
     cursor.execute(query, (id,))
     conn.commit()
     conn.close()
+
 
 
 
