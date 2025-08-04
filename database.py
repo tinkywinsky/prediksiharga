@@ -8,10 +8,10 @@ def get_connection():
     """Membuat koneksi ke database MySQL."""
     try:
         conn = mysql.connector.connect(
-            host='localhost',        # Ganti dengan host MySQL Anda
-            database='login_app',  # Ganti dengan nama database Anda
-            user='root',             # Ganti dengan username MySQL Anda
-            password=''   # Ganti dengan password MySQL Anda
+            host='145.223.108.41',        # Ganti dengan host MySQL Anda
+            database='u482189589_login_app',  # Ganti dengan nama database Anda
+            user='u482189589_winan',             # Ganti dengan username MySQL Anda
+            password='@123OliH321@'   # Ganti dengan password MySQL Anda
         )
         return conn
     except Error as e:
@@ -19,11 +19,11 @@ def get_connection():
         return None
 
 def get_sqlalchemy_engine():
-    user = 'root'
-    password = ''
-    host = 'localhost'
+    user = 'u482189589_winan'
+    password = '@123OliH321@'
+    host = '145.223.108.41'
     port = 3306
-    database = 'login_app'
+    database = 'u482189589_login_app'
 
     engine = create_engine(f"mysql+pymysql://{user}:{password}@{host}:{port}/{database}")
     return engine
@@ -95,3 +95,4 @@ def delete_data(id):
     cursor.execute(query, (id,))
     conn.commit()
     conn.close()
+
